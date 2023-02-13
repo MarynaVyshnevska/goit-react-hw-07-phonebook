@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 // import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { contactsFilterAction } from "redux/contact/contact.slice";
+// import { contactsFilterAction } from "redux/contact/contact.slice";
+import { filteredContacts } from "redux/contact/filter.slice";
 
 const Filter = () => {
     const dispatch = useDispatch();
-    const filter = useSelector(state => state.contacts.filter);
+    const filter = useSelector(state => state.filter);
 
     
     const handleFilter = evt => {
-        dispatch(contactsFilterAction(evt.currentTarget.value))
+        dispatch(filteredContacts(evt.currentTarget.value))
     }
 
     

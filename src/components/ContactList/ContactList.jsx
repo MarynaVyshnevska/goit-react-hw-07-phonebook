@@ -1,25 +1,29 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TfiCut } from "react-icons/tfi";
+import { deleteContactThunk } from 'redux/contact/contact.thunk';
 import PropTypes from 'prop-types';
+import { selectError,  selectIsLoading, selectFilteredContacts } from 'redux/contact/selectors';
 import css from './ContactList.module.css';
-import { deleteContactAction } from 'redux/contact/contact.slice';
 
 const ContactList = () => {
     const dispatch = useDispatch();
-    const contacts = useSelector(state => state.contacts.contacts);
-    const filter = useSelector(state => state.contacts.filter);
+    const filteredContacts = useSelector(selectFilteredContacts);
+    // const filter = useSelector(selectFilter);
+    const isLoading = useSelector(selectIsLoading);
+    const error = useSelector(selectError);
 
-    const filteredContacts = (filter === '')
-        ? contacts
-        : contacts.filter(contact => {
-            return contact.name.toLowerCase().includes(filter.toLowerCase())
-        });
+    // const filteredContacts = (filter === '')
+    //     ? contacts
+    //     : contacts.filter(contact => {
+    //         return contact.name.toLowerCase().includes(filter.toLowerCase())
+    //     });
 
-
+    console.log(filteredContacts);
     return (
         <ul className={css.ContactList__list}>
-            {filteredContacts.map(({ id, name, number }) => (
+            {!error && !isLoading &&
+            (filteredContacts.map(({ id, name, phone }) => (
             
                 <li key={id}
                     className={css.ContactList__item}>
@@ -27,15 +31,15 @@ const ContactList = () => {
                         return word[0].toUpperCase() + word.substring(1);
                     }).join(" ")}
                     </p>
-                    <p className={css.ContactList__phone}>{number}</p>
+                    <p className={css.ContactList__phone}>{phone}</p>
                     <button
                         type="button"
                         className={css.ContactList__button}
-                        onClick={() => dispatch(deleteContactAction(id))}
+                        onClick={() => dispatch(deleteContactThunk(id))}
                     >
                         Delete <TfiCut size={10} />
                     </button>
-                </li>
+                </li>)
             ))}
         </ul>
     )
@@ -47,6 +51,6 @@ ContactList.propTypes = {
     filteredContacts: PropTypes.arrayOf(PropTypes.exact({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
     })),
 }

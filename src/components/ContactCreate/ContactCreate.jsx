@@ -6,17 +6,18 @@ import * as yup from 'yup';
 
 import { TfiCommentsSmiley } from "react-icons/tfi";
 
-import { addContactAction } from 'redux/contact/contact.slice';
+// import { addContactAction } from 'redux/contact/contact.slice';
 import { FormPhone, InputPhone } from './ContactCreate.styled';
+import { addContactThunk } from 'redux/contact/contact.thunk';
 
 const initialValues ={
     name: '',
-    number: '',
+    phone: '',
 }
 
 const schemaContact = yup.object().shape({
     name: yup.string().max(50).required(),
-    number: yup.string().min(3).max(15).required(),
+    phone: yup.string().min(3).max(15).required(),
 })
 
 
@@ -27,7 +28,7 @@ const ContactCreate = () => {
     const handleSubmit = (values, {resetForm}) => {
         // console.log(values);
         const formContactData = values;
-        dispatch(addContactAction({
+        dispatch(addContactThunk({
             id: nanoid(),
             ...formContactData
         }));
@@ -58,12 +59,12 @@ const ContactCreate = () => {
                         <p >Phone</p>
                         <InputPhone
                             type="tel"
-                            name="number"
+                            name="phone"
                             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                             required
                         />
-                        <ErrorMessage name="number" component="div"/>      
+                        <ErrorMessage name="phone" component="div"/>      
                     </label>
                 </div>
                 
@@ -79,5 +80,5 @@ export default ContactCreate;
 ContactCreate.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
-    number: PropTypes.string,
+    phone: PropTypes.string,
 }
