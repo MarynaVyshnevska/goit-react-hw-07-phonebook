@@ -8,6 +8,11 @@
     justify-content: space-between;
 }
 
+.ContactList__phone{
+    font-size: 14px;
+    font-style: italic;
+}
+
 .ContactList__button {
     height: 20px;
     background-color: #e8e1e1;

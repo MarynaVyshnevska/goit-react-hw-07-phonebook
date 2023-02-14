@@ -3,26 +3,11 @@ import axios from "axios";
 
 axios.defaults.baseURL = 'https://63ea9c71e57f2ca4eb3e3c1e.mockapi.io';
 
-// export const getContactsThunk = createAsyncThunk(
-//     'contacts/fetchAll',
-//     async (params, thunkAPI) => {
-//         console.log(params);
-//         console.log(thunkAPI);
-//         try {
-//             const { data } = await axios.get('/contacts');
-//             console.log('hi')
-//             return data;
-//         } catch (error) {
-//             console.log("error", error)
-//             return thunkAPI.rejectWithValue(error.message);
-//         }
-//     }
-// );
 
 export const fetchContacts = createAsyncThunk(
     'contacts/fetchAll', async (_, thunkAPI) => {
         try {
-            console.log('hi')
+            // console.log('hi')
             const { data } = await axios.get('/contacts');
             return data;
         } catch (error) {

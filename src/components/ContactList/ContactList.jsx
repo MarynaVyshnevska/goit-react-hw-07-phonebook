@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TfiCut } from "react-icons/tfi";
 import { deleteContactThunk, fetchContacts } from 'redux/contact/contact.thunk';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { selectError,  selectIsLoading, selectFilteredContacts } from 'redux/contact/selectors';
 import css from './ContactList.module.css';
 import Spinner from 'components/Spinner/Spinner';
@@ -28,7 +28,7 @@ const ContactList = () => {
         return Notiflix.Notify.failure(`Ooooops, I'm sorry but something went wrong`)
     }
 
-    console.log(filteredContacts);
+    // console.log(filteredContacts);
     return (
         <ul className={css.ContactList__list}>
             {!error && !isLoading &&
@@ -58,10 +58,10 @@ const ContactList = () => {
 
 export default ContactList;
 
-ContactList.propTypes = {
-    filteredContacts: PropTypes.arrayOf(PropTypes.exact({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
-    })),
-}
+// ContactList.propTypes = {
+//     filteredContacts: PropTypes.arrayOf(PropTypes.exact({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       phone: PropTypes.string.isRequired,
+//     })),
+// }

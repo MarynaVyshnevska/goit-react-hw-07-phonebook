@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { contactsInitState } from './contact.init-state';
+import { contactsInitState } from './contact.init-state';
 import Notiflix from 'notiflix';
 import { addContactThunk, deleteContactThunk, fetchContacts } from './contact.thunk';
 
-const contactsInitState = {
-    items: [],
-    isLoading: false,
-    error: null,
+// const contactsInitState = {
+//     items: [],
+//     isLoading: false,
+//     error: null,
     
-};
+// };
 
 const contactSlice = createSlice({
     name: 'contacts',
@@ -16,7 +16,7 @@ const contactSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(fetchContacts.pending, state => {
             state.isLoading = true;
-            console.log('pending')
+            // console.log('pending')
         }).addCase(fetchContacts.fulfilled, (state, { payload }) => {
             state.isLoading = false;
             state.items = payload;
@@ -57,36 +57,7 @@ const contactSlice = createSlice({
             state.error = payload;
         })
     }
-    // reducers: {
-        // addContactAction: (state, { payload }) => {
-        //     const newContactName = state.contacts.find(contact => (
-        //         contact.name.toLowerCase() === payload.name.toLowerCase()
-        //     ));
-        //     if (newContactName) {
-        //         return Notiflix.Notify.warning(`Contact with name "${newContactName.name}" is already in your phonebook `)
-        //     }
-        //     const newContactNumber = state.contacts.find(contact => (
-        //         contact.number === payload.number
-        //     ));
-        //     // if (newContactName || newContactNumber) {
-        //     //     return Notiflix.Notify.warning(`${newContactName.name} ${newContactNumber.number} is already in your phonebook `)
-        //     // } // not working
-        //     if (newContactNumber) {
-        //         return Notiflix.Notify.warning(`Contact with phonenumber "${newContactNumber.number}" is already in your phonebook `)
-        //     }
-            
-        //     state.contacts.push(payload);
-            
-            
-    //     },
-    //     contactsFilterAction: (state, { payload }) => {
-    //         state.filter = payload;
-    //     },
-    //     deleteContactAction: (state, { payload }) => {
-    //         state.contacts = state.contacts.filter(contact => contact.id !== payload)
-    //     },
 
-    // },
 });
 
 export const contactsReducer = contactSlice.reducer;
